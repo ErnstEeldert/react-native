@@ -102,16 +102,17 @@ import javax.annotation.Nullable;
         ReactShadowNode nodeToUpdate,
         ReactStylesDiffMap props) {
       try {
-        Object[] local_SHADOW_ARGS = new Object[SHADOW_ARGS.length];
         if (mIndex == null) {
+          Object[] local_SHADOW_ARGS = new Object[SHADOW_ARGS.length];
           local_SHADOW_ARGS[0] = extractProperty(props);
           mSetter.invoke(nodeToUpdate, local_SHADOW_ARGS);
           Arrays.fill(local_SHADOW_ARGS, null);
         } else {
-          local_SHADOW_ARGS[0] = mIndex;
-          local_SHADOW_ARGS[1] = extractProperty(props);
-          mSetter.invoke(nodeToUpdate, local_SHADOW_ARGS);
-          Arrays.fill(local_SHADOW_ARGS, null);
+          Object[] local_SHADOW_GROUP_ARGS = new Object[SHADOW_GROUP_ARGS.length];
+          local_SHADOW_GROUP_ARGS[0] = mIndex;
+          local_SHADOW_GROUP_ARGS[1] = extractProperty(props);
+          mSetter.invoke(nodeToUpdate, local_SHADOW_GROUP_ARGS);
+          Arrays.fill(local_SHADOW_GROUP_ARGS, null);
         }
       } catch (Throwable t) {
         FLog.e(ViewManager.class, "Error while updating prop " + mPropName, t);
